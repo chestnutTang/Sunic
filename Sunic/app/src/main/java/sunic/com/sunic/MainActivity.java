@@ -25,7 +25,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import sunic.com.model.PhoneDto;
+import sunic.com.util.Log;
 import sunic.com.util.PhoneUtil;
+import sunic.com.util.Toast;
+import sunic.com.util.ToastUtil;
 
 /**
  * @author songzhengpeng
@@ -124,23 +127,24 @@ public class MainActivity extends AppCompatActivity
      */
     private void check() {
         //判断是否有权限
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_CONTACTS},201);
-        }else{
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, 201);
+        } else {
 //            initViews();
             PhoneUtil phoneUtil = new PhoneUtil(this);
             phoneDtos = phoneUtil.getPhone();
-
+            Toast.Toast(MainActivity.this, phoneDtos.toString());
+            Log.e(phoneDtos.toString());
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==201){
+        if (requestCode == 201) {
 //            initViews();
-        }else{
+        } else {
             return;
         }
     }
